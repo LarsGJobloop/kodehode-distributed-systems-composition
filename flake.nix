@@ -1,5 +1,5 @@
 {
-  description = "Monorepo for Kodehode.";
+  description = "Example of a disrtributed application running on docker compose.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
