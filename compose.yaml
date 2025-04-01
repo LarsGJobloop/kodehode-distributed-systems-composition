@@ -59,6 +59,9 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@mail.to
       PGADMIN_DEFAULT_PASSWORD: example
+    volumes:
+      - data-pgadmin:/var/lib/pgadmin
 
 volumes:
   data:
+  data-pgadmin:
