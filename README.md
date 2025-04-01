@@ -96,6 +96,25 @@ Caching servers (like Redis or Varnish) store responses to common requests. They
 
 A globally distributed set of servers optimized for delivering static or large content (e.g., images, videos). Used to serve assets closer to the user. CDNs are typically managed services you subscribe to, not run yourself.
 
+### GraphQL (Federated API)
+
+GraphQL is a flexible query language and runtime for APIs, allowing clients to ask for exactly the data they need—minimizing over-fetching and under-fetching. It’s especially powerful in systems where multiple backend teams contribute to a shared API.
+
+In a federated setup, a central gateway composes a single schema from multiple independently maintained subgraphs. This enables teams to evolve services independently while still exposing a unified API to consumers.
+
+Unlike REST, which typically maps to fixed resources, GraphQL treats data as a connected graph—allowing deep and cross-domain queries in a single request.
+
+#### Example
+
+A client might query:
+
+- `Book` → `Publisher` (Book & Company Service)  
+- `Publisher` → `StockNotation` (Company & Stock Service)  
+- `StockNotation` → `CEO` (Stock & Public Figures Service)  
+- `CEO` → `Name` (Public Figure Service)
+
+With GraphQL, this entire chain can be resolved in one round trip—without the client needing to know which services are involved behind the scenes.
+
 ## Final Notes
 
 Decomposing systems into smaller, independent components introduces complexity—but also unlocks a critical advantage: the ability to evolve. 
