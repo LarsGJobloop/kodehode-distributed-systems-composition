@@ -12,7 +12,15 @@ if (connectionString == null)
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+  options.UseNpgsql(connectionString));
+
+var unrestrictedCors = "UnrestricedOrigins";
+builder.Services.AddCors(options =>
+  options.AddPolicy(name: unrestrictedCors, policy => policy
+    .WithOrigins("*") // Tells browser from any domains it's okay
+    .AllowAnyMethod() // to perform all HTTP methods
+    .AllowAnyHeader()) // with any headers
+);
 
 var app = builder.Build();
 
@@ -35,5 +43,7 @@ app.MapPost("/quotes", (AppDbContext context, Quote newQuote) =>
   context.SaveChanges();
   return Results.Created();
 });
+
+app.UseCors(unrestrictedCors);
 
 app.Run();
