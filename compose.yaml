@@ -1,0 +1,9 @@
+name: "fullstack"
+
+services:
+  frontend:
+    image: joseluisq/static-web-server:2
+    volumes:
+      - ./frontend:/public
+    ports:
+      - 8080:80
