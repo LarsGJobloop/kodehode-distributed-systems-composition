@@ -30,10 +30,6 @@
         default = pkgs.mkShell {
           # Project Dependencies
           packages = [
-            # Toolchains
-            ## Frontend
-            pkgs.nodejs_22
-            ## Backend
             pkgs.dotnetCorePackages.sdk_9_0
           ];
 
