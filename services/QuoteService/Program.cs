@@ -24,6 +24,21 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Minimal Exception handler middleware
+app.Use(async (context, next) =>
+{
+  try
+  {
+    await next();
+  }
+  catch (Exception ex)
+  {
+    context.Response.StatusCode = 500;
+    await context.Response.WriteAsync("Something went wrong.");
+    Console.WriteLine(ex);
+  }
+});
+
 // Apply migration on each startup. Only for local development!
 // More controlled application is required in production
 using (var scope = app.Services.CreateScope())
