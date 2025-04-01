@@ -9,7 +9,6 @@ document.querySelector("#quote-form")
 updateView()
 
 async function handleFormSubmission(submitEvent) {
-  console.log("HAndling")
   submitEvent.preventDefault();
   /**@type {HTMLFormElement} */
   const form = submitEvent.target;
