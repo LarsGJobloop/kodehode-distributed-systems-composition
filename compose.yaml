@@ -1,20 +1,42 @@
 name: "fullstack"
 
 services:
+  gateway:
+    image: "traefik:v3.3"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
   frontend:
     image: joseluisq/static-web-server:2
     volumes:
       # Vertsystemet  :   Containersiden
       - ./frontend:/public
-    ports:
-      - 8080:80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
 
   api:
     build:
       context: ./Api
       dockerfile: Dockerfile
-    ports:
-      - 9090:8080
+    environment:
+      DB_CONNECTION_STRING: "Server=postgres;Port=5432;Database=blogs;Username=admin;Password=example"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`api.localhost`)"
+      - "traefik.http.routers.api.entrypoints=web"
+      - "traefik.http.services.my-service.loadbalancer.server.port=8080"
 
   postgres:
     image: postgres
