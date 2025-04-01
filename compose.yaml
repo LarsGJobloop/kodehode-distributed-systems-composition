@@ -7,3 +7,12 @@ services:
       - ./frontend:/public
     ports:
       - 8080:80
+
+  static-dotnet:
+    build:
+      context: ./StaticServer
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/App/wwwroot
+    ports:
+      - 9090:8080
