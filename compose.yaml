@@ -4,15 +4,14 @@ services:
   frontend:
     image: joseluisq/static-web-server:2
     volumes:
+      # Vertsystemet  :   Containersiden
       - ./frontend:/public
     ports:
       - 8080:80
 
-  static-dotnet:
+  api:
     build:
-      context: ./StaticServer
+      context: ./Api
       dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/App/wwwroot
     ports:
       - 9090:8080
