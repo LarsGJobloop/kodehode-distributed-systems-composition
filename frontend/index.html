@@ -4,13 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Frontend</title>
+  <script type="module" src="main.js"></script>
 </head>
 
 <body>
-  <header style="background-color: cornflowerblue; color: coral;">
+  <header>
     <h1>Hello World</h1>
   </header>
+
+  <main>
+    <form id="quote-form">
+      <label for="author">Author</label>
+      <input type="text" name="author" id="author">
+      <label for="content">Quote</label>
+      <input type="text" name="content" id="content">
+      <button type="submit">Add</button>
+    </form>
+
+    <section>
+      <ul id="quotes">
+        <template id="quote-template">
+          <li>
+            <p data-qoute="content"></p>
+            <p data-qoute="author"></p>
+          </li>
+        </template>
+      </ul>
+    </section>
+  </main>
 </body>
 
 </html>
